@@ -25,6 +25,8 @@ export class DispositivosService {
                 HttpStatus.NOT_FOUND
             );
         }
+
+        return dispositivo;
     }
 
     createDevice(createDeviceDto: any) {
