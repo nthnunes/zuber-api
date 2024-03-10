@@ -7,6 +7,7 @@ import {
   Post,
 } from '@nestjs/common';
 import { DispositivosService } from './dispositivos.service';
+import { CreateDeviceDto } from './dto/create-device.dto';
 
 
 @Controller('dispositivos')
@@ -24,8 +25,8 @@ export class DispositivosController {
   }
 
   @Post()
-  createDevice(@Body() body) {
-    return this.dispositivosService.createDevice(body);
+  createDevice(@Body() createDeviceDto: CreateDeviceDto) {
+    return this.dispositivosService.createDevice(createDeviceDto);
   }
 
   @Delete(':id')
