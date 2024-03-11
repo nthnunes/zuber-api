@@ -20,7 +20,7 @@ model Device {
 model Sprint {
   id       String @id @default(uuid())
   deviceId String
-  device   Device @relation(fields: [deviceId], references: [id])
+  device   Device @relation(fields: [deviceId], references: [id], onDelete: Cascade)
 
   geolocation GeoLocation[]
 
@@ -30,7 +30,7 @@ model Sprint {
 model GeoLocation {
   id       String @id @default(uuid())
   sprintId String
-  sprint   Sprint @relation(fields: [sprintId], references: [id])
+  sprint   Sprint @relation(fields: [sprintId], references: [id], onDelete: Cascade)
 
   @@map("geolocation")
 }
