@@ -1,45 +1,65 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
-import { Dispositivo } from './entities/dispositivo.entity';
+import { prismaClient } from 'src/database/prismaClient';
 
 @Injectable()
 export class DispositivosService {
-    private dispositivos: Dispositivo[] = [
-        {
-            id: "xpto",
-            nome: "Celular teste"
-        }
-    ];
+    async findAll() {
+        const devices = await prismaClient.device.findMany({
+            orderBy: {
+                created_at: 'asc'
+            }
+        });
 
-    findAll() {
-        return this.dispositivos;
+        return devices;
     }
 
-    findDevice(id: string) {
-        const dispositivo = this.dispositivos.find(
-            (dispositivo: Dispositivo) => dispositivo.id === id
-        );
+    async findDevice(id: string) {
+        const device = await prismaClient.device.findUnique({
+            where: {
+                id: id,
+            },
+        });
 
-        if (!dispositivo) {
+        if (!device) {
             throw new HttpException(
-                `Dispositivo ${id} não encontrado.`,
+                `Dispositivo ID: '${id}' não encontrado.`,
+                HttpStatus.NOT_FOUND
+            );
+        } else {
+            return device;
+        }
+    }
+
+    async createDevice(createDeviceDto: any) {
+        const nome = createDeviceDto.nome;
+
+        const device = await prismaClient.device.create({
+            data: {
+                nome
+            }
+        });
+
+        return device;
+    }
+
+    async deleteDevice(id: string) {
+        const device = await prismaClient.device.findUnique({
+            where: {
+                id: id,
+            },
+        });
+
+        if (!device) {
+            throw new HttpException(
+                `Dispositivo ID: '${id}' não encontrado.`,
                 HttpStatus.NOT_FOUND
             );
         }
 
-        return dispositivo;
-    }
-
-    createDevice(createDeviceDto: any) {
-        this.dispositivos.push(createDeviceDto);
-    }
-
-    deleteDevice(id: string) {
-        const indexDispositivo = this.dispositivos.findIndex(
-            (dispositivo: Dispositivo) => dispositivo.id === id
-        );
-
-        if (indexDispositivo >= 0) {
-            this.dispositivos.splice(indexDispositivo, 1);
-        }
+        await prismaClient.device.delete({
+            where: {
+                id: id
+            }
+        })
     }
 }
