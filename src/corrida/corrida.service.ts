@@ -14,7 +14,6 @@ export class CorridaService {
     }
 
     async createSprint(deviceId: string) {
-
         const device = await prismaClient.device.findUnique({
             where: {
                 id: deviceId,
