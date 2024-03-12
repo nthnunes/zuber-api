@@ -5,9 +5,10 @@ import { DispositivosModule } from './dispositivos/dispositivos.module';
 import { CorridaController } from './corrida/corrida.controller';
 import { CorridaService } from './corrida/corrida.service';
 import { CorridaModule } from './corrida/corrida.module';
+import { GeolocationModule } from './geolocation/geolocation.module';
 
 @Module({
-  imports: [DispositivosModule, CorridaModule],
+  imports: [DispositivosModule, CorridaModule, GeolocationModule],
   controllers: [AppController, CorridaController],
   providers: [AppService, CorridaService],
 })
