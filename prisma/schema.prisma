@@ -30,9 +30,11 @@ model Sprint {
 }
 
 model GeoLocation {
-  id       String @id @default(uuid())
+  id       Int      @id @default(autoincrement())
   sprintId String
-  sprint   Sprint @relation(fields: [sprintId], references: [id], onDelete: Cascade)
+  lat      Decimal
+  lon      Decimal
+  sprint   Sprint   @relation(fields: [sprintId], references: [id], onDelete: Cascade)
 
   @@map("geolocation")
 }
