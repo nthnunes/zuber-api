@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common';
 import { ClientsModule, Transport } from '@nestjs/microservices';
 import { GeolocationController } from './geolocation.controller';
+import { GeolocationService } from './geolocation.service';
 
 @Module({
     imports: [
@@ -14,6 +15,7 @@ import { GeolocationController } from './geolocation.controller';
         },
       ]),
     ],
-    controllers: [GeolocationController]
+    controllers: [GeolocationController],
+    providers: [GeolocationService]
   })
 export class GeolocationModule {}
