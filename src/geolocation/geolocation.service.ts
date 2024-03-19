@@ -32,7 +32,7 @@ export class GeolocationService {
               },
             });
         
-            console.log(geoLocation);
+            //console.log(geoLocation);
         
           } catch (error) {
             console.error("Erro no processamento da messagem:", error);
