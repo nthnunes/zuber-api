@@ -3,7 +3,7 @@ import { OnGatewayConnection, OnGatewayDisconnect, OnGatewayInit, SubscribeMessa
 import { Server, Socket } from 'socket.io';
 import { prismaClient } from 'src/database/prismaClient';
 
-@WebSocketGateway()
+@WebSocketGateway({ cors: true })
 export class WebGateway implements OnGatewayInit, OnGatewayConnection, OnGatewayDisconnect {
   @WebSocketServer() server: Server;
   private logger: Logger = new Logger('WebGateway');
