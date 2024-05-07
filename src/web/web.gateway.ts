@@ -26,7 +26,7 @@ export class WebGateway implements OnGatewayInit, OnGatewayConnection, OnGateway
       } catch (error) {
         this.logger.error(`Erro ao buscar a última geolocalização: ${error}`);
       }
-    }, 5000);
+    }, 30100);
   }
 
   stopCheckingGeoLocations() {
