@@ -39,3 +39,15 @@ model GeoLocation {
 
   @@map("geolocation")
 }
+
+model Logs {
+  id       Int      @id @default(autoincrement())
+  date     DateTime @default(now())
+  ip       String
+  method   String
+  route    String
+  status   Int
+  data     Json?
+
+  @@map("logs")
+}
