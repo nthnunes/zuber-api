@@ -1,0 +1,9 @@
+version: "3.8"
+services:
+  redis:
+    container_name: zuber-redis
+    image: redis
+    command: redis-server --requirepass tSYZECYZyyag0BHqYy8yY
+    restart: always
+    ports:
+      - "6379:6379"

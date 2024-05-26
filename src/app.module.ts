@@ -8,9 +8,17 @@ import { CorridaModule } from './corrida/corrida.module';
 import { GeolocationModule } from './geolocation/geolocation.module';
 import { WebGateway } from './web/web.gateway';
 import { LoggingMiddleware } from './common/logging.middleware';
+import { QueueModule } from './queue/queue.module';
+import { BullModule } from '@nestjs/bull';
 
 @Module({
-  imports: [DispositivosModule, CorridaModule, GeolocationModule],
+  imports: [DispositivosModule, CorridaModule, GeolocationModule, BullModule.forRoot({
+    redis: {
+      host: "localhost",
+      port: Number(6379),
+      password: "tSYZECYZyyag0BHqYy8yY"
+    },
+  }), QueueModule],
   controllers: [AppController, CorridaController],
   providers: [AppService, CorridaService, WebGateway],
 })
@@ -18,6 +26,6 @@ export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
     consumer
       .apply(LoggingMiddleware)
-      .forRoutes('*');  // Aplica o middleware para todas as rotas
+      .forRoutes('*');
   }
 }

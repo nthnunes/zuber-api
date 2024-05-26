@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 import { ClientsModule, Transport } from '@nestjs/microservices';
 import { GeolocationController } from './geolocation.controller';
 import { GeolocationService } from './geolocation.service';
+import { QueueModule } from 'src/queue/queue.module';
 
 @Module({
     imports: [
@@ -14,6 +15,7 @@ import { GeolocationService } from './geolocation.service';
           }
         },
       ]),
+      QueueModule
     ],
     controllers: [GeolocationController],
     providers: [GeolocationService]
