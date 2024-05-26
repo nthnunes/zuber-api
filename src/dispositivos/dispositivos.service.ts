@@ -33,13 +33,26 @@ export class DispositivosService {
     async createDevice(createDeviceDto: any) {
         const nome = createDeviceDto.nome;
 
-        const device = await prismaClient.device.create({
-            data: {
-                nome
-            }
+        const temp = await prismaClient.device.findFirst({
+            where: {
+                nome : nome
+            },
         });
 
-        return device;
+        if (temp) {
+            throw new HttpException(
+                `Dispositivo '${nome}' já existe.`,
+                HttpStatus.CONFLICT
+            );
+        } else {
+            const device = await prismaClient.device.create({
+                data: {
+                    nome
+                }
+            });
+    
+            return device;
+        }
     }
 
     async deleteDevice(id: string) {
